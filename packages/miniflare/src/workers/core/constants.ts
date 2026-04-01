@@ -17,6 +17,8 @@ export const CorePaths = {
 	EXPLORER: "/cdn-cgi/explorer",
 	/** Legacy way to trigger scheduled event handlers */
 	LEGACY_SCHEDULED: "/cdn-cgi/mf/scheduled",
+	/** Stream video serving endpoint */
+	STREAM_VIDEO: "/cdn-cgi/stream",
 } as const;
 
 export const CoreHeaders = {
@@ -73,6 +75,7 @@ export const CoreBindings = {
 	JSON_EXPLORER_WORKER_OPTS: "MINIFLARE_EXPLORER_WORKER_OPTS",
 	SERVICE_CACHE: "MINIFLARE_CACHE",
 	JSON_TELEMETRY_CONFIG: "MINIFLARE_TELEMETRY_CONFIG",
+	SERVICE_STREAM: "MINIFLARE_STREAM",
 } as const;
 
 export const ProxyOps = {

@@ -1,0 +1,13 @@
+{
+	"name": "auto-provision-test",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-04-01",
+	"kv_namespaces": [{ "binding": "CACHE" }],
+	"d1_databases": [{ "binding": "DB" }],
+	"r2_buckets": [{ "binding": "UPLOADS" }],
+	"queues": {
+		"producers": [{ "binding": "TASK_QUEUE" }],
+	},
+	"vectorize": [{ "binding": "EMBEDDINGS" }],
+	"hyperdrive": [{ "binding": "POSTGRES" }],
+}

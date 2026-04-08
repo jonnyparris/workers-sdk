@@ -1,0 +1,13 @@
+{
+	"name": "@fixture/auto-provision-app",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy"
+	},
+	"devDependencies": {
+		"wrangler": "workspace:*"
+	},
+	"volta": {
+		"extends": "../../package.json"
+	}
+}

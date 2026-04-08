@@ -184,6 +184,12 @@ importers:
         specifier: workspace:*
         version: link:../../packages/wrangler
 
+  fixtures/auto-provision-app:
+    devDependencies:
+      wrangler:
+        specifier: workspace:*
+        version: link:../../packages/wrangler
+
   fixtures/browser-rendering:
     devDependencies:
       '@cloudflare/playwright':

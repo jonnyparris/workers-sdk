@@ -196,7 +196,7 @@ export interface CfWorkflow {
 
 export interface CfQueue {
 	binding: string;
-	queue_name: string;
+	queue_name?: string | typeof INHERIT_SYMBOL;
 	delivery_delay?: number;
 	remote?: boolean;
 	raw?: boolean;
@@ -225,7 +225,7 @@ export interface CfD1Database {
 
 export interface CfVectorize {
 	binding: string;
-	index_name: string;
+	index_name?: string | typeof INHERIT_SYMBOL;
 	raw?: boolean;
 	remote?: boolean;
 }
@@ -268,7 +268,7 @@ export interface CfRateLimit {
 
 export interface CfHyperdrive {
 	binding: string;
-	id: string;
+	id?: string | typeof INHERIT_SYMBOL;
 	localConnectionString?: string;
 }
 
@@ -284,7 +284,7 @@ export interface CfService {
 
 export interface CfVpcService {
 	binding: string;
-	service_id: string;
+	service_id?: string | typeof INHERIT_SYMBOL;
 	remote?: boolean;
 }
 
@@ -302,7 +302,7 @@ export interface CfAnalyticsEngineDataset {
 
 export interface CfDispatchNamespace {
 	binding: string;
-	namespace: string;
+	namespace?: string | typeof INHERIT_SYMBOL;
 	outbound?: {
 		service: string;
 		environment?: string;
@@ -313,7 +313,7 @@ export interface CfDispatchNamespace {
 
 export interface CfMTlsCertificate {
 	binding: string;
-	certificate_id: string;
+	certificate_id?: string | typeof INHERIT_SYMBOL;
 	remote?: boolean;
 }
 
@@ -332,7 +332,7 @@ export interface CfAssetsBinding {
 
 export interface CfPipeline {
 	binding: string;
-	pipeline: string;
+	pipeline?: string | typeof INHERIT_SYMBOL;
 	remote?: boolean;
 }
 

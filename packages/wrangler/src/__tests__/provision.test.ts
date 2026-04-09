@@ -573,7 +573,6 @@ describe("resource provisioning", () => {
 			writeWranglerConfig({
 				main: "index.js",
 				kv_namespaces: [{ binding: "KV" }],
-				// @ts-expect-error — index_name is optional for provisioning
 				vectorize: [{ binding: "EMBEDDINGS" }],
 			});
 			mockGetSettings();
@@ -594,9 +593,7 @@ describe("resource provisioning", () => {
 		it("blocks with multiple non-ciSafe bindings and lists all of them", async () => {
 			writeWranglerConfig({
 				main: "index.js",
-				// @ts-expect-error — optional for provisioning
 				vectorize: [{ binding: "INDEX" }],
-				// @ts-expect-error — optional for provisioning
 				hyperdrive: [{ binding: "DB" }],
 			});
 			mockGetSettings();

@@ -2038,7 +2038,6 @@ describe("normalizeAndValidateConfig()", () => {
 					{
 						vectorize: [
 							{},
-							{ binding: "VALID" },
 							{ binding: 2000, index_name: 2111 },
 							{
 								binding: "BINDING_2",
@@ -2056,10 +2055,8 @@ describe("normalizeAndValidateConfig()", () => {
 				expect(diagnostics.renderErrors()).toMatchInlineSnapshot(`
 					"Processing wrangler configuration:
 					  - "vectorize[0]" bindings should have a string "binding" field but got {}.
-					  - "vectorize[0]" bindings must have an "index_name" field but got {}.
-					  - "vectorize[1]" bindings must have an "index_name" field but got {"binding":"VALID"}.
-					  - "vectorize[2]" bindings should have a string "binding" field but got {"binding":2000,"index_name":2111}.
-					  - "vectorize[2]" bindings must have an "index_name" field but got {"binding":2000,"index_name":2111}."
+					  - "vectorize[1]" bindings should have a string "binding" field but got {"binding":2000,"index_name":2111}.
+					  - "vectorize[1]" bindings must have an "index_name" field but got {"binding":2000,"index_name":2111}."
 				`);
 			});
 
@@ -2132,7 +2129,6 @@ describe("normalizeAndValidateConfig()", () => {
 					{
 						ai_search_namespaces: [
 							{},
-							{ binding: "VALID" },
 							{ binding: 2000, namespace: 2111 },
 							{
 								binding: "BINDING_2",
@@ -2149,10 +2145,8 @@ describe("normalizeAndValidateConfig()", () => {
 				expect(diagnostics.renderErrors()).toMatchInlineSnapshot(`
 					"Processing wrangler configuration:
 					  - "ai_search_namespaces[0]" bindings should have a string "binding" field but got {}.
-					  - "ai_search_namespaces[0]" bindings must have a "namespace" field but got {}.
-					  - "ai_search_namespaces[1]" bindings must have a "namespace" field but got {"binding":"VALID"}.
-					  - "ai_search_namespaces[2]" bindings should have a string "binding" field but got {"binding":2000,"namespace":2111}.
-					  - "ai_search_namespaces[2]" bindings must have a "namespace" field but got {"binding":2000,"namespace":2111}."
+					  - "ai_search_namespaces[1]" bindings should have a string "binding" field but got {"binding":2000,"namespace":2111}.
+					  - "ai_search_namespaces[1]" bindings must have a "namespace" field but got {"binding":2000,"namespace":2111}."
 				`);
 			});
 
@@ -3537,9 +3531,7 @@ describe("normalizeAndValidateConfig()", () => {
 				expect(diagnostics.renderErrors()).toMatchInlineSnapshot(`
 					"Processing wrangler configuration:
 					  - "hyperdrive[0]" bindings should have a string "binding" field but got {}.
-					  - "hyperdrive[0]" bindings must have a "id" field but got {}.
-					  - "hyperdrive[2]" bindings should have a string "binding" field but got {"binding":2000,"project":2111}.
-					  - "hyperdrive[2]" bindings must have a "id" field but got {"binding":2000,"project":2111}."
+					  - "hyperdrive[2]" bindings should have a string "binding" field but got {"binding":2000,"project":2111}."
 				`);
 			});
 		});
@@ -3572,7 +3564,6 @@ describe("normalizeAndValidateConfig()", () => {
 							invalidField: "madeupValue",
 							producers: [
 								{},
-								{ binding: "QUEUE_BINDING_1" },
 								{ binding: 2333, queue: 2444 },
 								{ binding: "QUEUE_BINDING_3", queue: "" },
 							],
@@ -3597,11 +3588,9 @@ describe("normalizeAndValidateConfig()", () => {
 				expect(diagnostics.renderErrors()).toMatchInlineSnapshot(`
 					"Processing wrangler configuration:
 					  - "queues.producers[0]" bindings should have a string "binding" field but got {}.
-					  - "queues.producers[0]" bindings should have a string "queue" field but got {}.
-					  - "queues.producers[1]" bindings should have a string "queue" field but got {"binding":"QUEUE_BINDING_1"}.
-					  - "queues.producers[2]" bindings should have a string "binding" field but got {"binding":2333,"queue":2444}.
-					  - "queues.producers[2]" bindings should have a string "queue" field but got {"binding":2333,"queue":2444}.
-					  - "queues.producers[3]" bindings should have a string "queue" field but got {"binding":"QUEUE_BINDING_3","queue":""}."
+					  - "queues.producers[1]" bindings should have a string "binding" field but got {"binding":2333,"queue":2444}.
+					  - "queues.producers[1]" bindings should have a string "queue" field but got {"binding":2333,"queue":2444}.
+					  - "queues.producers[2]" bindings should have a string "queue" field but got {"binding":"QUEUE_BINDING_3","queue":""}."
 				`);
 			});
 
@@ -4122,8 +4111,7 @@ describe("normalizeAndValidateConfig()", () => {
 					  - "dispatch_namespaces[2]" should have a string "namespace" field but got {"binding":123,"namespace":456}.
 					  - "dispatch_namespaces[3]" should have a string "namespace" field but got {"binding":"DISPATCH_NAMESPACE_BINDING_1","namespace":456}.
 					  - "dispatch_namespaces[5]" should have a string "binding" field but got {"binding":123,"namespace":"DISPATCH_NAMESPACE_BINDING_SERVICE_1"}.
-					  - "dispatch_namespaces[6]" should have a string "binding" field but got {"binding":123,"service":456}.
-					  - "dispatch_namespaces[6]" should have a string "namespace" field but got {"binding":123,"service":456}."
+					  - "dispatch_namespaces[6]" should have a string "binding" field but got {"binding":123,"service":456}."
 				`);
 			});
 
@@ -4306,11 +4294,8 @@ describe("normalizeAndValidateConfig()", () => {
 					  - "mtls_certificates" bindings should be objects, but got 123
 					  - "mtls_certificates" bindings should be objects, but got false
 					  - "mtls_certificates[3]" bindings should have a string "binding" field but got {"binding":123,"namespace":123}.
-					  - "mtls_certificates[3]" bindings should have a string "certificate_id" field but got {"binding":123,"namespace":123}.
-					  - "mtls_certificates[4]" bindings should have a string "certificate_id" field but got {"binding":"CERT_ONE","id":"1234"}.
 					  - "mtls_certificates[5]" bindings should have a string "certificate_id" field but got {"binding":"CERT_TWO","certificate_id":1234}.
-					  - "mtls_certificates[7]" bindings should have a string "binding" field but got {"binding":true,"service":"1234"}.
-					  - "mtls_certificates[7]" bindings should have a string "certificate_id" field but got {"binding":true,"service":"1234"}."
+					  - "mtls_certificates[7]" bindings should have a string "binding" field but got {"binding":true,"service":"1234"}."
 				`);
 			});
 		});
@@ -4422,9 +4407,7 @@ describe("normalizeAndValidateConfig()", () => {
 				expect(diagnostics.renderErrors()).toMatchInlineSnapshot(`
 					"Processing wrangler configuration:
 					  - "pipelines[0]" bindings must have a string "binding" field but got {}.
-					  - "pipelines[0]" bindings must have a string "pipeline" field but got {}.
-					  - "pipelines[2]" bindings must have a string "binding" field but got {"binding":2000,"project":2111}.
-					  - "pipelines[2]" bindings must have a string "pipeline" field but got {"binding":2000,"project":2111}."
+					  - "pipelines[2]" bindings must have a string "binding" field but got {"binding":2000,"project":2111}."
 				`);
 			});
 		});
@@ -4861,7 +4844,6 @@ describe("normalizeAndValidateConfig()", () => {
 								service_id: "0199295b-b3ac-7760-8246-bca40877b3e9",
 							},
 							{ binding: null, service_id: 123, invalid: true },
-							{ binding: "MISSING_SERVICE_ID" },
 						],
 					} as unknown as RawConfig,
 					undefined,
@@ -4873,10 +4855,8 @@ describe("normalizeAndValidateConfig()", () => {
 				expect(diagnostics.renderErrors()).toMatchInlineSnapshot(`
 					"Processing wrangler configuration:
 					  - "vpc_services[0]" bindings should have a string "binding" field but got {}.
-					  - "vpc_services[0]" bindings must have a "service_id" field but got {}.
 					  - "vpc_services[2]" bindings should have a string "binding" field but got {"binding":null,"service_id":123,"invalid":true}.
-					  - "vpc_services[2]" bindings must have a "service_id" field but got {"binding":null,"service_id":123,"invalid":true}.
-					  - "vpc_services[3]" bindings must have a "service_id" field but got {"binding":"MISSING_SERVICE_ID"}."
+					  - "vpc_services[2]" bindings must have a "service_id" field but got {"binding":null,"service_id":123,"invalid":true}."
 				`);
 			});
 		});

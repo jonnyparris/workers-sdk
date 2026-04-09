@@ -6,6 +6,6 @@ Update dependencies of "create-cloudflare"
 
 The following dependency versions have been updated:
 
-| Dependency | From   | To     |
-| ---------- | ------ | ------ |
-| create-vue | 3.22.1 | 3.22.2 |
+| Dependency        | From  | To     |
+| ----------------- | ----- | ------ |
+| create-docusaurus | 3.9.2 | 3.10.0 |

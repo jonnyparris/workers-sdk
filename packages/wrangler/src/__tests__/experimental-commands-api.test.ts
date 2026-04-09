@@ -30,7 +30,6 @@ describe("experimental_getWranglerCommands", () => {
 			    "requiresArg": true,
 			    "type": "string",
 			  },
-
 			  "experimental-provision": {
 			    "alias": [
 			      "x-provision",

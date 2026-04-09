@@ -134,7 +134,6 @@ type Props = {
 	oldAssetTtl: number | undefined;
 	projectRoot: string | undefined;
 	dispatchNamespace: string | undefined;
-	experimentalAutoCreate: boolean;
 	metafile: string | boolean | undefined;
 	containersRollout: "immediate" | "gradual" | undefined;
 	strict: boolean | undefined;
@@ -998,7 +997,6 @@ See https://developers.cloudflare.com/workers/platform/compatibility-dates for m
 					bindings ?? {},
 					accountId,
 					scriptName,
-					props.experimentalAutoCreate,
 					props.config
 				);
 			}

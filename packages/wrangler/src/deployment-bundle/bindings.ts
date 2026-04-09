@@ -151,7 +151,6 @@ export async function provisionBindings(
 	bindings: StartDevWorkerInput["bindings"],
 	accountId: string,
 	scriptName: string,
-	autoCreate: boolean,
 	config: Config,
 	requireRemote = false
 ): Promise<void> {

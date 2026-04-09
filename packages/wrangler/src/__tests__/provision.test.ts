@@ -533,7 +533,7 @@ describe("resource provisioning", () => {
 			expect(std.out).toContain("All resources provisioned");
 		});
 
-		it("auto-creates queue bindings in CI", async () => {
+		it("skips provisioning for queue bindings with queue name set", async () => {
 			writeWranglerConfig({
 				main: "index.js",
 				queues: {
@@ -541,33 +541,12 @@ describe("resource provisioning", () => {
 				},
 			});
 			mockGetSettings();
-			// Mock listQueues — called by load(), isConnectedToExistingResource(), and ensureQueuesExist
-			let queueCreated = false;
+			// ensureQueuesExistByConfig verifies the queue exists
 			msw.use(
 				http.get("*/accounts/:accountId/queues", async () =>
 					HttpResponse.json(
-						createFetchResult(
-							queueCreated ? [{ queue_name: "my-queue", queue_id: "q-id" }] : []
-						)
+						createFetchResult([{ queue_name: "my-queue", queue_id: "q-id" }])
 					)
-				)
-			);
-			msw.use(
-				http.post(
-					"*/accounts/:accountId/queues",
-					async ({ request }) => {
-						const body = await request.json();
-						expect(body).toEqual({
-							queue_name: "my-queue",
-						});
-						queueCreated = true;
-						return HttpResponse.json(
-							createFetchResult({
-								queue_name: "my-queue",
-							})
-						);
-					},
-					{ once: true }
 				)
 			);
 			mockUploadWorkerRequest({
@@ -581,7 +560,7 @@ describe("resource provisioning", () => {
 			});
 
 			await runWrangler("deploy");
-			expect(std.out).toContain('Creating new Queue "my-queue"');
+			expect(std.out).not.toContain("Provisioning");
 		});
 	});
 

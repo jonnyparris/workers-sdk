@@ -70,6 +70,13 @@ export class VectorizeHandler extends ProvisionResourceHandler<
 		super("vectorize", bindingName, binding, "index_name", config, accountId);
 	}
 
+	isFullySpecified(): boolean {
+		return (
+			typeof this.binding.index_name === "string" &&
+			this.binding.index_name.length > 0
+		);
+	}
+
 	canInherit(settings: Settings | undefined): boolean {
 		return !!settings?.bindings.find(
 			(existing) =>

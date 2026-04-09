@@ -70,6 +70,13 @@ export class PipelineHandler extends ProvisionResourceHandler<
 		super("pipelines", bindingName, binding, "pipeline", config, accountId);
 	}
 
+	isFullySpecified(): boolean {
+		return (
+			typeof this.binding.pipeline === "string" &&
+			this.binding.pipeline.length > 0
+		);
+	}
+
 	canInherit(settings: Settings | undefined): boolean {
 		return !!settings?.bindings.find(
 			(existing) =>

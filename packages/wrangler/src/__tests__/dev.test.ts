@@ -3044,6 +3044,7 @@ describe.sequential("wrangler dev", () => {
 			expect(primaryInput.env).toBe("dev");
 			expect(auxiliaryInput.env).toBe("dev");
 		});
+
 	});
 });
 

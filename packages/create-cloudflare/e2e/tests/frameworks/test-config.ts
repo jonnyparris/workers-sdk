@@ -89,6 +89,9 @@ function getFrameworkTestConfig(pm: string): NamedFrameworkTestConfig[] {
 		{
 			name: "docusaurus:pages",
 			argv: ["--platform", "pages"],
+			// quarantined: Docusaurus build broken with webpack 5.106.0
+			// https://github.com/facebook/docusaurus/issues/11923
+			quarantine: true,
 			unsupportedPms: ["bun"],
 			testCommitMessage: true,
 			unsupportedOSs: ["win32"],
@@ -118,6 +121,9 @@ function getFrameworkTestConfig(pm: string): NamedFrameworkTestConfig[] {
 		{
 			name: "docusaurus:workers",
 			argv: ["--platform", "workers"],
+			// quarantined: Docusaurus build broken with webpack 5.106.0
+			// https://github.com/facebook/docusaurus/issues/11923
+			quarantine: true,
 			unsupportedPms: ["bun"],
 			testCommitMessage: true,
 			unsupportedOSs: ["win32"],
@@ -704,6 +710,9 @@ function getExperimentalFrameworkTestConfig(
 		{
 			name: "docusaurus:workers",
 			argv: ["--platform", "workers"],
+			// quarantined: Docusaurus build broken with webpack 5.106.0
+			// https://github.com/facebook/docusaurus/issues/11923
+			quarantine: true,
 			unsupportedPms: ["bun"],
 			testCommitMessage: true,
 			unsupportedOSs: ["win32"],

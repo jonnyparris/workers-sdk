@@ -541,14 +541,6 @@ describe("resource provisioning", () => {
 				},
 			});
 			mockGetSettings();
-			// ensureQueuesExistByConfig verifies the queue exists
-			msw.use(
-				http.get("*/accounts/:accountId/queues", async () =>
-					HttpResponse.json(
-						createFetchResult([{ queue_name: "my-queue", queue_id: "q-id" }])
-					)
-				)
-			);
 			mockUploadWorkerRequest({
 				expectedBindings: [
 					{
@@ -561,6 +553,51 @@ describe("resource provisioning", () => {
 
 			await runWrangler("deploy");
 			expect(std.out).not.toContain("Provisioning");
+		});
+
+		it("auto-creates queue bindings without a name in CI", async () => {
+			writeWranglerConfig({
+				main: "index.js",
+				queues: {
+					producers: [{ binding: "QUEUE" }],
+				},
+			});
+			mockGetSettings();
+			mockListKVNamespacesRequest(); // for the KV load in HANDLERS
+			msw.use(
+				http.get("*/accounts/:accountId/queues", async () =>
+					HttpResponse.json(createFetchResult([]))
+				),
+				http.post(
+					"*/accounts/:accountId/queues",
+					async ({ request }) => {
+						const body = await request.json();
+						expect(body).toEqual({
+							queue_name: "test-name-queue-deadbeef",
+						});
+						return HttpResponse.json(
+							createFetchResult({
+								queue_name: "test-name-queue-deadbeef",
+							})
+						);
+					},
+					{ once: true }
+				)
+			);
+			mockUploadWorkerRequest({
+				expectedBindings: [
+					{
+						name: "QUEUE",
+						type: "queue",
+						queue_name: "test-name-queue-deadbeef",
+					},
+				],
+			});
+
+			await runWrangler("deploy");
+			expect(std.out).toContain(
+				'Creating new Queue "test-name-queue-deadbeef"'
+			);
 		});
 	});
 

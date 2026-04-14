@@ -1014,7 +1014,11 @@ See https://developers.cloudflare.com/workers/platform/compatibility-dates for m
 				}
 			);
 
-			await ensureQueuesExistByConfig(config);
+			// When provisioning is enabled, queues are created as part of provisioning
+			// so we don't need to verify they exist separately.
+			if (!getFlag("RESOURCES_PROVISION")) {
+				await ensureQueuesExistByConfig(config);
+			}
 			let bindingsPrinted = false;
 
 			// Upload the script so it has time to propagate.

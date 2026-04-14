@@ -107,6 +107,9 @@ async function collectPendingResources(
 
 	const pendingResources: PendingResource[] = [];
 
+	// Track provisioned queue names for de-duplication with consumers
+	const provisionedQueueNames = new Set<string>();
+
 	for (const [bindingName, binding] of Object.entries(bindings ?? {})) {
 		if (!isProvisionableBinding(binding)) {
 			continue;
@@ -122,6 +125,36 @@ async function collectPendingResources(
 			pendingResources.push({
 				binding: bindingName,
 				resourceType: binding.type,
+				handler: h,
+			});
+		}
+
+		// Track queue names (both provisioned and already-existing) for de-duplication
+		if (binding.type === "queue" && typeof binding.queue_name === "string") {
+			provisionedQueueNames.add(binding.queue_name);
+		}
+	}
+
+	// Also provision queues referenced by consumers that aren't already
+	// covered by a producer binding. Consumers are triggers, not bindings,
+	// so they don't appear in the bindings map above.
+	for (const consumer of config.queues?.consumers ?? []) {
+		if (!consumer.queue || provisionedQueueNames.has(consumer.queue)) {
+			continue;
+		}
+		provisionedQueueNames.add(consumer.queue);
+
+		const syntheticBinding: ProvisionableBinding = {
+			type: "queue",
+			queue_name: consumer.queue,
+		};
+		const syntheticName = `__consumer_${consumer.queue}`;
+		const h = createHandler(syntheticName, syntheticBinding, config, accountId);
+
+		if (await h.shouldProvision(settings)) {
+			pendingResources.push({
+				binding: syntheticName,
+				resourceType: "queue",
 				handler: h,
 			});
 		}

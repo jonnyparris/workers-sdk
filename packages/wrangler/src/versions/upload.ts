@@ -787,7 +787,9 @@ See https://developers.cloudflare.com/workers/platform/compatibility-dates for m
 				unsafe: config.unsafe,
 			});
 
-			await ensureQueuesExistByConfig(config);
+			if (!getFlag("RESOURCES_PROVISION")) {
+				await ensureQueuesExistByConfig(config);
+			}
 			let bindingsPrinted = false;
 
 			// Upload the version.

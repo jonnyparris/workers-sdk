@@ -1,5 +1,14 @@
 # wrangler
 
+## 4.83.1
+
+### Patch Changes
+
+- [#12456](https://github.com/cloudflare/workers-sdk/pull/12456) [`59eec63`](https://github.com/cloudflare/workers-sdk/commit/59eec634e4611392a5eb273079d73bf6417cd8bc) Thanks [@venkatnikhilm](https://github.com/venkatnikhilm)! - Improve validation and error messaging for R2 CORS configuration files to catch AWS S3-style formatting mistake.
+
+- Updated dependencies [[`7f50300`](https://github.com/cloudflare/workers-sdk/commit/7f50300ad86c7f180ae3a8ff80ac83783b2416a7)]:
+  - miniflare@4.20260415.1
+
 ## 4.83.0
 
 ### Minor Changes

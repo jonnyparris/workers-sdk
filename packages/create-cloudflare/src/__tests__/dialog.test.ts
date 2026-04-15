@@ -174,5 +174,40 @@ describe("dialog helpers", () => {
 				"
 			`);
 		});
+
+		test("with no deploy in current directory (no cd needed)", async ({ expect }) => {
+			await printSummary({
+				...ctx,
+				account: undefined,
+				deployment: {},
+				// When user passes "." as directory, path equals originalCWD
+				project: { name: "test-project", path: "./workspace" },
+				originalCWD: "./workspace",
+				template: {
+					...ctx.template,
+					platform: "pages",
+				},
+			});
+
+			expect(normalizeOutput(std.out)).toMatchInlineSnapshot(`
+				"────────────────────────────────────────────────────────────
+				🎉  SUCCESS  Application created successfully!
+
+				💻 Continue Developing
+				Deploy: pnpm run deploy
+
+				📖 Explore Documentation
+				https://developers.cloudflare.com/pages
+
+				🐛 Report an Issue
+				https://github.com/cloudflare/workers-sdk/issues/new/choose
+
+				💬 Join our Community
+				https://discord.cloudflare.com
+				────────────────────────────────────────────────────────────
+
+				"
+			`);
+		});
 	});
 });
